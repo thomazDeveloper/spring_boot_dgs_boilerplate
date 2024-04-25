@@ -1,0 +1,11 @@
+type Query {
+    findAll: [User]
+    findById(id: ID!): User
+}
+
+type User {
+    id: ID!
+    username: String!
+    firstName: String!
+    lastname: String!
+}

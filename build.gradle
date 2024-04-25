@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.5'
     id 'io.spring.dependency-management' version '1.1.4'
+    id("com.netflix.dgs.codegen") version "6.1.4"
 }
 
 group = 'com.thomaz'
@@ -21,9 +22,20 @@ repositories {
     mavenCentral()
 }
 
+dependencyManagement {
+    imports {
+        mavenBom("com.netflix.graphql.dgs:graphql-dgs-platform-dependencies:latest.release")
+    }
+}
+
+ext['kotlin.version'] = "1.9.20"
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-r2dbc'
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation "com.netflix.graphql.dgs:graphql-dgs-spring-graphql-starter"
+    implementation "com.netflix.graphql.dgs:graphql-dgs-extended-scalars"
+    implementation 'org.flywaydb:flyway-core'
     compileOnly 'org.projectlombok:lombok'
     developmentOnly 'org.springframework.boot:spring-boot-devtools'
     runtimeOnly 'org.postgresql:postgresql'
